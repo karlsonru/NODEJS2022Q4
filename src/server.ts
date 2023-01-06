@@ -10,5 +10,3 @@ const server = http.createServer(router);
 
 server.listen(PORT);
 
-server.on('error', (err) => console.error(`err: ${err}`));
-server.on('request', router);

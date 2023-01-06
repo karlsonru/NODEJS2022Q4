@@ -1,9 +1,14 @@
-import { fstat } from 'fs';
+import http from 'http';
+import dotenv from 'dotenv';
+import { router } from './router.js';
 
-const a = 'Hello world!';
+dotenv.config();
 
-console.log(a);
-console.log(fstat);
+const PORT = process.env.PORT ?? 8081;
 
+const server = http.createServer(router);
 
-export { a };
+server.listen(PORT);
+
+server.on('error', (err) => console.error(`err: ${err}`));
+server.on('request', router);

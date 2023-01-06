@@ -30,7 +30,7 @@ export class ControllerUsers {
 
     if (user === undefined) {
       res.statusCode = 404;
-      res.end('Doesn\'t exists');
+      res.end('Doesn\'t exist');
       return;
     }
 
@@ -72,7 +72,7 @@ export class ControllerUsers {
 
     if (!isExists) {
       res.statusCode = 404;
-      res.end('Doesn\'t exists');
+      res.end('Doesn\'t exist');
       return;
     }
 
@@ -108,7 +108,7 @@ export class ControllerUsers {
 
     if (!isExists) {
       res.statusCode = 404;
-      res.end('Doesn\'t exists');
+      res.end('Doesn\'t exist');
       return;
     }
 

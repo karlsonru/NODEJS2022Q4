@@ -4,7 +4,7 @@ interface IUser {
   id: string;
   username: string;
   age: number;
-  hobbies?: string[];
+  hobbies: string[];
 }
 
 export class Service {
@@ -30,8 +30,7 @@ export class Service {
 
   update(user: IUser) {
     const idx = this.db.findIndex((oldUser) => oldUser.id === user.id);
-    this.db[idx] = { ...this.db[idx], ...user }
-    // this.db.splice(idx, 1, user);
+    this.db[idx] = user;
     return this.db[idx];
   }
 

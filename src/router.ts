@@ -11,7 +11,7 @@ export async function router(req: IncomingMessage, res: ServerResponse) {
   try {    
     if (!req.url?.startsWith('/api/users')) {      
       res.statusCode = 404;
-      res.end('No such route');
+      res.end('Route doesn\'t exist');
       return;
     }
 

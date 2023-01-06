@@ -5,47 +5,36 @@ import { Service } from './service.js';
 const service = new Service([]);
 const controller = new ControllerUsers(service);
 
-export function router(req: IncomingMessage, res: ServerResponse) { 
-  try {
-    if (!req.url) {
-      console.log('URL: ', req.url);
-      console.log(!req.url);
+export async function router(req: IncomingMessage, res: ServerResponse) { 
+  res.setHeader('Content-Type', 'application/json');
 
-      res.statusCode = 400;
-      res.end('Bad request');
-      return;
-    }  
-  
-    if (req.url.startsWith('/api/users')) {
-      switch(req.method) {
-        case 'GET':
-          controller.get(req, res);
-          break;
-        case 'POST':
-          res.statusCode = 201;
-          res.end('POST');
-          break;
-        case 'PUT':
-          res.statusCode = 200;
-          res.end('PUT');
-          break;
-        case 'DELETE':
-          res.statusCode = 204;
-          res.end('DELETE');
-          break;
-        default:
-          res.statusCode = 400;
-          res.end('Unsupported method');
-      }
-    } else {
-      console.log('else execute');
+  try {    
+    if (!req.url?.startsWith('/api/users')) {      
       res.statusCode = 404;
       res.end('No such route');
+      return;
+    }
+
+    switch(req.method) {
+      case 'GET':
+        controller.get(req, res);
+        break;
+      case 'POST':
+        await controller.post(req, res);
+        break;
+      case 'PUT':
+        await controller.put(req, res);
+        break;
+      case 'DELETE':
+        controller.delete(req, res);
+        break;
+      default:
+        res.statusCode = 400;
+        res.end('Unsupported or unknown method');
     }
   } catch (err) {
+    console.error(err);
     res.statusCode = 500;
     res.end('Internal Error');
-  } finally {
-    return;
   }
 }
